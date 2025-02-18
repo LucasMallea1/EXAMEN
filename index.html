@@ -3,62 +3,81 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sitios de Películas y Series</title>
+    <title>Formulario de Contacto</title>
     <style>
         body {
             font-family: Arial, sans-serif;
-            text-align: center;
-            background-color: #1e1e1e;
-            color: white;
-            margin: 0;
-            padding: 0;
-        }
-        .header {
-            background: url('https://source.unsplash.com/1600x400/?cinema') no-repeat center/cover;
-            padding: 50px 20px;
-        }
-        h1 {
-            background: rgba(0, 0, 0, 0.6);
-            display: inline-block;
-            padding: 10px 20px;
-            border-radius: 10px;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
         }
         .container {
-            margin-top: 20px;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
-        .btn {
-            display: inline-block;
-            padding: 15px 30px;
-            margin: 15px;
-            font-size: 18px;
-            font-weight: bold;
+        input, textarea {
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            background-color: #28a745;
+            color: white;
+            padding: 10px;
             border: none;
-            border-radius: 10px;
+            border-radius: 5px;
             cursor: pointer;
-            transition: transform 0.2s, box-shadow 0.2s;
         }
-        .btn:hover {
-            transform: scale(1.1);
-            box-shadow: 0 4px 10px rgba(255, 255, 255, 0.3);
+        button:hover {
+            background-color: #218838;
         }
-        .btn1 { background-color: #e50914; color: white; }
-        .btn2 { background-color: #ff9800; color: white; }
-        .btn3 { background-color: #2196f3; color: white; }
     </style>
 </head>
 <body>
-    <div class="header">
-        <h1>Sitios Populares para Ver Películas y Series</h1>
-    </div>
     <div class="container">
-        <button class="btn btn1" onclick="irA('https://www.netflix.com')">Netflix</button>
-        <button class="btn btn2" onclick="irA('https://www.primevideo.com')">Prime Video</button>
-        <button class="btn btn3" onclick="irA('https://www.disneyplus.com')">Disney+</button>
+        <h2>Formulario de Contacto</h2>
+        <form id="contactForm">
+            <label>Nombre y Apellido *</label>
+            <input type="text" id="nombre" required>
+            
+            <label>Correo Electrónico *</label>
+            <input type="email" id="email" required>
+            
+            <label>Domicilio</label>
+            <input type="text" id="domicilio">
+            
+            <label>Fecha de Nacimiento</label>
+            <input type="date" id="fechaNacimiento">
+            
+            <label>Mensaje</label>
+            <textarea id="mensaje" rows="4"></textarea>
+            
+            <button type="submit">Enviar</button>
+        </form>
+        <p id="resultado"></p>
     </div>
+    
     <script>
-        function irA(url) {
-            window.open(url, '_blank');
-        }
+        document.getElementById('contactForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            
+            let nombre = document.getElementById('nombre').value.trim();
+            let email = document.getElementById('email').value.trim();
+            
+            if (nombre === '' || email === '') {
+                alert('Los campos Nombre y Apellido y Correo Electrónico son obligatorios.');
+                return;
+            }
+            
+            document.getElementById('resultado').innerText = 'Formulario enviado correctamente';
+        });
     </script>
 </body>
 </html>
+
