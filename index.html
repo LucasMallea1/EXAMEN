@@ -3,80 +3,85 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Formulario de Contacto</title>
+    <title>Páginas de Multimedia y Contacto</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-        }
-        .container {
-            background: white;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-        input, textarea {
-            width: 100%;
-            padding: 10px;
-            margin: 5px 0;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-        }
-        button {
-            background-color: #28a745;
-            color: white;
-            padding: 10px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-        button:hover {
-            background-color: #218838;
-        }
+        body { font-family: Arial, sans-serif; text-align: center; background-color: #f4f4f4; }
+        .container { max-width: 600px; margin: 20px auto; padding: 20px; background: white; border-radius: 10px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); }
+        .buttons a { display: block; margin: 10px; padding: 10px; border-radius: 5px; color: white; text-decoration: none; font-weight: bold; }
+        .buttons a:nth-child(1) { background-color: #ff5733; }
+        .buttons a:nth-child(2) { background-color: #33c3ff; }
+        .buttons a:nth-child(3) { background-color: #33ff77; }
+        nav { margin: 20px; }
+        nav a { margin: 10px; padding: 10px; background: #333; color: white; text-decoration: none; border-radius: 5px; }
+        form input, form textarea { width: 100%; padding: 10px; margin: 10px 0; border: 1px solid #ccc; border-radius: 5px; }
+        form button { padding: 10px 20px; background: #28a745; color: white; border: none; border-radius: 5px; cursor: pointer; }
     </style>
 </head>
 <body>
-    <div class="container">
+    <nav>
+        <a href="#pagina1">Multimedia</a>
+        <a href="#pagina2">Películas y Series</a>
+        <a href="#pagina3">Contacto</a>
+    </nav>
+    
+    <div id="pagina1" class="container">
+        <h2>Reproducción de Video y Música</h2>
+        <img src="media.jpg" alt="Multimedia" width="100%">
+        <div class="buttons">
+            <a href="https://www.youtube.com" target="_blank">YouTube</a>
+            <a href="https://www.spotify.com" target="_blank">Spotify</a>
+            <a href="https://www.soundcloud.com" target="_blank">SoundCloud</a>
+        </div>
+    </div>
+
+    <div id="pagina2" class="container" style="display: none;">
+        <h2>Películas y Series</h2>
+        <img src="movies.jpg" alt="Películas y Series" width="100%">
+        <div class="buttons">
+            <a href="https://www.netflix.com" target="_blank">Netflix</a>
+            <a href="https://www.disneyplus.com" target="_blank">Disney+</a>
+            <a href="https://www.hbomax.com" target="_blank">HBO Max</a>
+        </div>
+    </div>
+    
+    <div id="pagina3" class="container" style="display: none;">
         <h2>Formulario de Contacto</h2>
-        <form id="contactForm">
-            <label>Nombre y Apellido *</label>
-            <input type="text" id="nombre" required>
-            
-            <label>Correo Electrónico *</label>
-            <input type="email" id="email" required>
-            
-            <label>Domicilio</label>
-            <input type="text" id="domicilio">
-            
-            <label>Fecha de Nacimiento</label>
-            <input type="date" id="fechaNacimiento">
-            
-            <label>Mensaje</label>
-            <textarea id="mensaje" rows="4"></textarea>
-            
+        <form onsubmit="return validarFormulario()">
+            <input type="text" id="nombre" placeholder="Nombre y Apellido" required>
+            <input type="email" id="correo" placeholder="Correo Electrónico" required>
+            <input type="text" id="domicilio" placeholder="Domicilio">
+            <input type="date" id="fecha_nacimiento">
+            <textarea id="mensaje" placeholder="Escribe tu mensaje"></textarea>
             <button type="submit">Enviar</button>
         </form>
-        <p id="resultado"></p>
     </div>
     
     <script>
-        document.getElementById('contactForm').addEventListener('submit', function(event) {
-            event.preventDefault();
-            
-            let nombre = document.getElementById('nombre').value.trim();
-            let email = document.getElementById('email').value.trim();
-            
-            if (nombre === '' || email === '') {
-                alert('Los campos Nombre y Apellido y Correo Electrónico son obligatorios.');
-                return;
-            }
-            
-            document.getElementById('resultado').innerText = 'Formulario enviado correctamente';
+        function cambiarPagina(pagina) {
+            document.getElementById('pagina1').style.display = 'none';
+            document.getElementById('pagina2').style.display = 'none';
+            document.getElementById('pagina3').style.display = 'none';
+            document.getElementById(pagina).style.display = 'block';
+        }
+        
+        document.querySelectorAll('nav a').forEach(enlace => {
+            enlace.addEventListener('click', function(event) {
+                event.preventDefault();
+                const id = this.getAttribute('href').substring(1);
+                cambiarPagina(id);
+            });
         });
+        
+        function validarFormulario() {
+            let nombre = document.getElementById('nombre').value;
+            let correo = document.getElementById('correo').value;
+            if (nombre === '' || correo === '') {
+                alert('Por favor, complete los campos obligatorios.');
+                return false;
+            }
+            alert('Formulario enviado con éxito!');
+            return true;
+        }
     </script>
 </body>
 </html>
